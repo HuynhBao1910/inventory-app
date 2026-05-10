@@ -26,6 +26,6 @@ app.use("/api/dashboard", dashboardRoute);
 const PORT = process.env.PORT || 5000;
 app.use("/api/auth", require("./routes/auth"));
 
-app.listen(PORT, () => {
-    console.log(`Server đang chạy cổng ${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server đang chạy ở cổng ${PORT}`);
 });
