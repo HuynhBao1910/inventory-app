@@ -14,7 +14,10 @@ router.post("/dangky", async (req, res) => {
             (err, result) => {
                 if (err) {
                     console.error("Lỗi INSERT:", err.sqlMessage);
-                    return res.status(400).json("Email đã tồn tại hoặc lỗi bảng");
+                    return res.status(400).json({
+                        message: "Lỗi đăng ký",
+                        error_detail: err.sqlMessage 
+                    });
                 }
                 res.json("Đăng ký thành công");
             }
