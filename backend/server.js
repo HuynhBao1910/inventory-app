@@ -10,10 +10,11 @@ const dashboardRoute = require("./routes/dashboard");
 // middleware
 // const cors = require('cors');
 app.use(cors({
-    origin: '*', 
+    origin: 'https://inventory-app-huynhbao1910s-projects.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    credentials: true
 }));
+
 app.use(express.json());
 
 // routes
