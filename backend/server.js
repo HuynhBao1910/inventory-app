@@ -8,7 +8,12 @@ const app = express();
 const dashboardRoute = require("./routes/dashboard");
 
 // middleware
-app.use(cors());
+// const cors = require('cors');
+app.use(cors({
+    origin: '*', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // routes
