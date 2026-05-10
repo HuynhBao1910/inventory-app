@@ -33,8 +33,15 @@ function Login() {
 
         } catch (err) {
 
-            alert("Lỗi server");
-
+            console.log(err);
+            console.log(err.response);
+        
+            alert(
+                err.response?.data ||
+                err.message ||
+                "Lỗi server"
+            );
+        
         }
 
     };
