@@ -37,9 +37,8 @@ function Login() {
             console.log(err.response);
         
             alert(
-                err.response?.data ||
-                err.message ||
-                "Lỗi server"
+                JSON.stringify(err.response?.data) ||
+                err.message
             );
         
         }
