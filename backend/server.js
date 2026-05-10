@@ -18,7 +18,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.options('*', cors());
+app.options('(.*)', cors());
 // routes
 app.use("/api/sanpham", require("./routes/sanpham"));
 app.use("/api/donhang", require("./routes/donhang"));
