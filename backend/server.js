@@ -12,18 +12,19 @@ const dashboardRoute = require("./routes/dashboard");
 app.use(cors({
     origin: 'https://inventory-app-huynhbao1910s-projects.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
 
 app.use(express.json());
 
 // routes
-app.use("/api/auth", require("./routes/auth"));
 app.use("/api/sanpham", require("./routes/sanpham"));
 app.use("/api/donhang", require("./routes/donhang"));
 app.use("/api/dashboard", dashboardRoute);
 
 const PORT = process.env.PORT || 5000;
+app.use("/api/auth", require("./routes/auth"));
 
 app.listen(PORT, () => {
     console.log(`Server đang chạy cổng ${PORT}`);
