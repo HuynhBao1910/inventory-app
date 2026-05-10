@@ -11,14 +11,14 @@ const dashboardRoute = require("./routes/dashboard");
 // const cors = require('cors');
 app.use(cors({
     // origin: 'https://inventory-app-huynhbao1910s-projects.vercel.app',
-    origin: '*',
+    origin: allowedOrigin,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
 
 app.use(express.json());
-
+app.options('*', cors());
 // routes
 app.use("/api/sanpham", require("./routes/sanpham"));
 app.use("/api/donhang", require("./routes/donhang"));

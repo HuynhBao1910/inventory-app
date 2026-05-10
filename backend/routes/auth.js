@@ -24,6 +24,10 @@ router.post("/dangky", async (req, res) => {
 
 
 // đăng nhập
+router.options("/dangnhap", (req, res) => {
+  res.sendStatus(204);
+});
+
 router.post("/dangnhap", (req, res) => {
     const { email, matkhau } = req.body;
 
