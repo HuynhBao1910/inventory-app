@@ -22,29 +22,50 @@ router.post("/dangky", async (req, res) => {
     }
 });
 
-
-// đăng nhập
-
+//dang nhap
 router.post("/dangnhap", (req, res) => {
     const { email, matkhau } = req.body;
+    console.log("Đang kiểm tra đăng nhập cho:", email);
 
     db.query(
         "SELECT * FROM nguoidung WHERE email = ?",
         [email],
         async (err, result) => {
-            if (err) return res.json("Lỗi server");
+            if (err) {
+                console.error("Lỗi truy vấn DB:", err);
+                return res.status(500).json("Lỗi server");
+            }
             if (result.length === 0)
-                return res.json("Không tìm thấy tài khoản");
+                return res.status(404).json("Không tìm thấy tài khoản");
 
             const user = result[0];
-
             const dung = await bcrypt.compare(matkhau, user.matkhau);
-            if (!dung) return res.json("Sai mật khẩu");
-            const token = jwt.sign({ id: user.id },  process.env.JWT_SECRET);
-            res.json({
-                message: "Đăng nhập thành công",
-                token
-            });
+            
+            if (!dung) return res.status(401).json("Sai mật khẩu");
+
+            // kiểm tra xem secret có tồn tại k
+            if (!process.env.JWT_SECRET) {
+                console.error("LỖI: JWT_SECRET chưa được cấu hình trong Variables!");
+                return res.status(500).json("Lỗi cấu hình server");
+            }
+
+            try {
+                const token = jwt.sign(
+                    { id: user.id }, 
+                    process.env.JWT_SECRET,
+                    { expiresIn: "1d" } // token có hạn 1 ngày
+                );
+
+                console.log("Tạo token thành công cho:", email);
+                
+                return res.json({
+                    message: "Đăng nhập thành công",
+                    token: token // gửi token về cho vercel
+                });
+            } catch (jwtErr) {
+                console.error("Lỗi khi tạo Token:", jwtErr);
+                return res.status(500).json("Không thể tạo mã xác thực");
+            }
         }
     );
 });
