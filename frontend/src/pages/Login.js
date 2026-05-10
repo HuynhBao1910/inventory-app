@@ -10,7 +10,7 @@ function Login() {
 
         try {
 
-            console.log("Full URL sẽ gọi là:", api.defaults.baseURL + "/api/auth/dangnhap");
+            // console.log("Full URL:", api.defaults.baseURL + "/api/auth/dangnhap");
 
 
             const res = await api.post("/api/auth/dangnhap", {
