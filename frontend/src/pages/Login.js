@@ -9,7 +9,7 @@ function Login() {
     const dangNhap = async () => {
 
         try {
-            
+
             console.log("Full URL sẽ gọi là:", api.defaults.baseURL + "/api/auth/dangnhap");
 
 
@@ -30,7 +30,7 @@ function Login() {
             } else {
 
                 // hien loi tu backend
-                alert(res.data);
+                alert("Server trả về nhưng không có token: " + JSON.stringify(res.data));
 
             }
 
