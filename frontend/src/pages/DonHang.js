@@ -20,7 +20,7 @@ function DonHang() {
 
     useEffect(() => {
         layDonHang();
-    }, []);
+    }, [layDonHang]);
 
     const capNhatTrangThai = async (id, trangthai) => {
         try {
