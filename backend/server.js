@@ -12,7 +12,7 @@ const dashboardRoute = require("./routes/dashboard");
 app.use(cors({
     origin: 'https://inventory-app-huynhbao1910s-projects.vercel.app',
     // origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
