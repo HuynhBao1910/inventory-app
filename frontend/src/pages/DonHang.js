@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import api from "../api/api";
 
 function DonHang() {
@@ -6,27 +6,27 @@ function DonHang() {
 
     const token = localStorage.getItem("token");
 
-    const layDonHang = useCallback(async () => {
-        try {
-            const res = await api.get("/donhang", {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-
-            setDanhsach(res.data);
-
-        } catch (err) {
-            console.log(err);
-            alert("Lỗi lấy đơn hàng");
-        }
-    }, [token]);
-
     useEffect(() => {
+        const layDonHang = async () => {
+            try {
+                const res = await api.get("/donhang", {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+                setDanhsach(res.data);
+
+            } catch (err) {
+                console.log(err);
+                alert("Lỗi lấy đơn hàng");
+            }
+        };
+
         layDonHang();
-    }, [layDonHang]);
+
+    }, [token]);
 
     const capNhatTrangThai = async (id, trangthai) => {
         try {
-
             await api.put(
                 `/donhang/${id}`,
                 { trangthai },
@@ -38,8 +38,7 @@ function DonHang() {
             );
 
             alert("Cập nhật thành công");
-
-            layDonHang();
+            window.location.reload();
 
         } catch (err) {
             console.log(err);
