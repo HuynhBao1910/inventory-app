@@ -10,8 +10,8 @@ const dashboardRoute = require("./routes/dashboard");
 // middleware
 // const cors = require('cors');
 app.use(cors({
-    // origin: 'https://inventory-app-huynhbao1910s-projects.vercel.app',
-    origin: allowedOrigin,
+    origin: 'https://inventory-app-huynhbao1910s-projects.vercel.app',
+    // origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
