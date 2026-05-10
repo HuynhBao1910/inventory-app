@@ -18,7 +18,7 @@ router.post("/dangky", async (req, res) => {
             }
         );
     } catch (err) {
-        res.status(500).json("Lỗi server");
+        res.status(500).json(err);
     }
 });
 
