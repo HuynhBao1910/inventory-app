@@ -39,7 +39,11 @@ router.post("/dangnhap", (req, res) => {
                 return res.status(404).json("Không tìm thấy tài khoản");
 
             const user = result[0];
+            console.log("Mật khẩu người dùng nhập:", matkhau);
+            console.log("Mật khẩu lấy từ DB:", user.matkhau);
+            
             const dung = await bcrypt.compare(matkhau, user.matkhau);
+            console.log("Kết quả so sánh:", dung);
             
             if (!dung) return res.status(401).json("Sai mật khẩu");
 
