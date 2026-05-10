@@ -13,7 +13,7 @@ function Login() {
             // console.log("Full URL:", api.defaults.baseURL + "/api/auth/dangnhap");
 
 
-            const res = await api.post("/auth/dangnhap", {
+            const res = await api.post("/api/auth/dangnhap", {
                 email,
                 matkhau
             });
