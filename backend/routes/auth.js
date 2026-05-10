@@ -39,7 +39,7 @@ router.post("/dangnhap", (req, res) => {
 
             const dung = await bcrypt.compare(matkhau, user.matkhau);
             if (!dung) return res.json("Sai mật khẩu");
-            const token = jwt.sign({ id: user.id }, "123456");
+            const token = jwt.sign({ id: user.id },  process.env.JWT_SECRET);
             res.json({
                 message: "Đăng nhập thành công",
                 token
