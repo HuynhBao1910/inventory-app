@@ -18,9 +18,10 @@ function DonHang() {
         }
     };
 
-    // eslint-disable-next-line
     useEffect(() => {
         layDonHang();
+    
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const capNhatTrangThai = async (id, trangthai) => {
