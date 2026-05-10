@@ -25,7 +25,7 @@ app.use("/api/sanpham", require("./routes/sanpham"));
 app.use("/api/donhang", require("./routes/donhang"));
 app.use("/api/dashboard", dashboardRoute);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 app.use("/api/auth", require("./routes/auth"));
 
 app.listen(PORT, "0.0.0.0", () => {
