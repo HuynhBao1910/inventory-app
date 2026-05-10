@@ -10,7 +10,7 @@ function Login() {
 
         try {
 
-            const res = await api.post("/auth/dangnhap", {
+            const res = await api.post("/api/auth/dangnhap", {
                 email,
                 matkhau
             });
