@@ -12,7 +12,13 @@ function App() {
   const [dangKy, setDangKy] = useState(false);
 
   return (
-    <div className="container py-5" style={{ maxWidth: 1300 }}>
+    <div
+      className="container-fluid py-4"
+      style={{
+        background: "#f4f7fb",
+        minHeight: "100vh"
+      }}
+    >
 
       <div className="d-flex justify-content-between align-items-center mb-4">
 
