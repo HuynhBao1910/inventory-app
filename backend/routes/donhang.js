@@ -4,71 +4,87 @@ const xacthuc = require("../middleware/xacthuc");
 
 
 
-//tao don
+
+// tao don
 router.post("/", xacthuc, (req, res) => {
+
     const { danhsach } = req.body;
+
     let tong = 0;
 
-    let loiTonKho = false;
-
-    //tao don truoc
     db.query(
         "INSERT INTO donhang (user_id, tongtien) VALUES (?,0)",
         [req.user.id],
         (err, result) => {
-            if (err) return res.json("Loi tao don");
+
+            if (err) {
+                console.log(err);
+                return res.json("Loi tao don");
+            }
 
             const donhang_id = result.insertId;
 
-            //xu ly tung sp
+            let dem = 0;
+
             danhsach.forEach((item) => {
+
                 db.query(
-                    "SELECT * FROM sanpham WHERE id =?",
+                    "SELECT * FROM sanpham WHERE id = ?",
                     [item.sanpham_id],
                     (err, sp) => {
-                        if (!sp[0]) return;
 
-                        //ktra ton kho
-                        if (sp[0].soluong < item.soluong) {
-                            loiTonKho = true;
-                            // console.log(("San pham khong du ton kho"));
+                        if (err || sp.length === 0) {
                             return;
                         }
 
-                        //tru kho
+                        if (sp[0].soluong < item.soluong) {
+                            return res.json("San pham khong du ton kho");
+                        }
+
+                        tong += sp[0].gia * item.soluong;
+
+                        // tru kho
                         db.query(
                             "UPDATE sanpham SET soluong = soluong - ? WHERE id = ?",
                             [item.soluong, item.sanpham_id]
                         );
 
-                        //tinh tien
-                        tong += sp[0].gia * item.soluong;
-
-                        //luu chi tiet don hang
+                        // them chi tiet don
                         db.query(
-                            "INSERT INTO chitiet_donhang(donhang_id, sanpham_id, soluong) VALUES (?,?,?)",
+                            "INSERT INTO chitiet_donhang (donhang_id, sanpham_id, soluong) VALUES (?,?,?)",
                             [donhang_id, item.sanpham_id, item.soluong]
                         );
+
+                        dem++;
+
+                        // neu xu ly xong het
+                        if (dem === danhsach.length) {
+
+                            db.query(
+                                "UPDATE donhang SET tongtien = ? WHERE id = ?",
+                                [tong, donhang_id],
+                                (err) => {
+
+                                    if (err) {
+                                        console.log(err);
+                                        return res.json("Loi update tong");
+                                    }
+
+                                    res.json("Tao don thanh cong");
+
+                                }
+                            );
+
+                        }
+
                     }
                 );
+
             });
-            
-            //update tong tien
-            setTimeout(() => {
-                if (loiTonKho) {
-                    return res.json("San pham khong du ton kho");
-}
 
-                db.query(
-                    "UPDATE donhang SET tongtien = ? WHERE id = ?",
-                    [tong, donhang_id]
-                );
-                res.json("Tao don thanh cong");
-            }, 500);
-
-            
         }
     );
+
 });
 
 //trang thai donhang
