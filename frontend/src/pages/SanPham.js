@@ -99,11 +99,11 @@ function SanPham() {
     const datDon = async (sp) => {
 
         try {
-    
+
             const token = localStorage.getItem("token");
-    
+
             const soluong = soluongMua[sp.id] || 1;
-    
+
             await api.post(
                 "/api/donhang",
                 {
@@ -120,67 +120,77 @@ function SanPham() {
                     }
                 }
             );
-    
+
             alert(" Đặt đơn thành công");
             laySanPham();
-    
+
         } catch (err) {
-    
+
             console.log(err);
             alert(" Lỗi đặt đơn");
-    
+
         }
     };
 
-// trang
-const viTriCuoi = trangHienTai * soLuongMoiTrang;
-const viTriDau = viTriCuoi - soLuongMoiTrang;
+    // trang
+    const viTriCuoi = trangHienTai * soLuongMoiTrang;
+    const viTriDau = viTriCuoi - soLuongMoiTrang;
 
-const sanPhamHienThi = danhsach.filter((sp) => {
+    const sanPhamHienThi = danhsach.filter((sp) => {
 
-    const tenSanpham = sp.ten
-        ? sp.ten.toLowerCase()
-        : "";
+        const tenSanpham = sp.ten
+            ? sp.ten.toLowerCase()
+            : "";
 
-    return tenSanpham.includes(
-        (timkiem || "").toLowerCase()
-    );
+        return tenSanpham.includes(
+            (timkiem || "").toLowerCase()
+        );
 
-})
-.slice(viTriDau, viTriCuoi);
+    })
+        .slice(viTriDau, viTriCuoi);
 
     return (
         <div>
             <ThemSanPham />
-            <input className="form-control mb-3" placeholder="Tìm sản phẩm" onChange={(e)=> setTimKiem(e.target.value)}  />
+            <div className="mb-4">
+
+                <input
+                    className="form-control shadow-sm border-0"
+                    placeholder="🔍 Tìm sản phẩm..."
+                    style={{
+                        height: 55,
+                        borderRadius: 16
+                    }}
+                    onChange={(e) => setTimKiem(e.target.value)}
+                />
+
+            </div>
             <h2>Danh sách sản phẩm</h2>
 
             {
-    sanPhamHienThi.map((sp) => (
+                sanPhamHienThi.map((sp) => (
 
-        <div
+                    <div
     key={sp.id}
-    className="card border-0 shadow-sm mb-4"
+    className="card border-0 shadow-lg mb-4"
     style={{
-        borderRadius: 20,
+        borderRadius: 24,
         overflow: "hidden"
     }}
 >
 
-    <div className="row g-0">
+    <div className="row g-0 align-items-center">
 
-        <div className="col-md-4">
+        <div className="col-md-3 text-center p-3">
 
             <img
                 src={sp.hinhanh}
                 alt=""
                 style={{
-                    width: "50%",
-                    height: "50%",
+                    width: 180,
+                    height: 180,
                     objectFit: "cover",
-                    minHeight: 250,
-                    borderRadius: 12,
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+                    borderRadius: 20
                 }}
             />
 
@@ -188,69 +198,105 @@ const sanPhamHienThi = danhsach.filter((sp) => {
 
         <div className="col-md-9">
 
-            <div className="card-body">
+            <div className="card-body p-4">
 
-                <div className="d-flex justify-content-between align-items-start">
+                <div className="d-flex justify-content-between align-items-start flex-wrap">
 
                     <div>
 
-                        <h3 className="fw-bold">
+                        <h3 className="fw-bold mb-2">
                             {sp.ten}
                         </h3>
 
-                        <p className="text-muted">
+                        <p
+                            className="text-muted"
+                            style={{
+                                maxWidth: 500
+                            }}
+                        >
                             {sp.mota}
                         </p>
 
                     </div>
 
-                    <span className="badge bg-dark fs-6">
+                    <span
+                        className="badge bg-dark"
+                        style={{
+                            padding: "10px 16px",
+                            borderRadius: 12,
+                            fontSize: 14
+                        }}
+                    >
                         Kho: {sp.soluong}
                     </span>
 
                 </div>
 
-                <h4 className="text-primary fw-bold mb-4">
+                <h2 className="text-primary fw-bold mt-3 mb-4">
+
                     {Number(sp.gia).toLocaleString()}đ
-                </h4>
 
-                <input
-                    type="number"
-                    className="form-control mb-4 shadow-sm"
-                    placeholder="Số lượng mua"
-                    onChange={(e) =>
-                        setSoluongMua({
-                            ...soluongMua,
-                            [sp.id]: e.target.value
-                        })
-                    }
-                />
+                </h2>
 
-                <div className="d-flex gap-2">
+                <div className="row align-items-center">
 
-                    <button
-                        className="btn btn-danger"
-                        onClick={() => xoaSanpham(sp.id)}
-                    >
-                        <i className="bi bi-trash me-2"></i>
-                        Xóa
-                    </button>
+                    <div className="col-md-3">
 
-                    <button
-                        className="btn btn-warning"
-                        onClick={() => suaSanPham(sp)}
-                    >
-                        <i className="bi bi-pencil me-2"></i>
-                        Sửa
-                    </button>
+                        <input
+                            type="number"
+                            className="form-control shadow-sm"
+                            placeholder="Số lượng"
+                            style={{
+                                height: 50,
+                                borderRadius: 14
+                            }}
+                            onChange={(e) =>
+                                setSoluongMua({
+                                    ...soluongMua,
+                                    [sp.id]: e.target.value
+                                })
+                            }
+                        />
 
-                    <button
-                        className="btn btn-success"
-                        onClick={() => datDon(sp)}
-                    >
-                        <i className="bi bi-cart-plus me-2"></i>
-                        Đặt đơn
-                    </button>
+                    </div>
+
+                    <div className="col-md-9">
+
+                        <div className="d-flex gap-2 flex-wrap">
+
+                            <button
+                                className="btn btn-danger px-4"
+                                style={{
+                                    borderRadius: 14
+                                }}
+                                onClick={() => xoaSanpham(sp.id)}
+                            >
+                                🗑 Xóa
+                            </button>
+
+                            <button
+                                className="btn btn-warning px-4"
+                                style={{
+                                    borderRadius: 14
+                                }}
+                                onClick={() => suaSanPham(sp)}
+                            >
+                                ✏️ Sửa
+                            </button>
+
+                            <button
+                                className="btn btn-success px-4"
+                                style={{
+                                    borderRadius: 14
+                                }}
+                                onClick={() => datDon(sp)}
+                            >
+                                🛒 Đặt đơn
+                            </button>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -262,30 +308,36 @@ const sanPhamHienThi = danhsach.filter((sp) => {
 
 </div>
 
-    ))
+                ))
             }
-            <div className="d-flex gap-2 mb-4">
+            <div className="d-flex justify-content-center gap-3 my-5">
 
-    <button
-        className="btn btn-dark px-4"
-        onClick={() =>
-            setTrangHientai(trangHienTai - 1)
-        }
-        disabled={trangHienTai === 1}
-    >
-        Prev
-    </button>
+                <button
+                    className="btn btn-dark px-4 py-2"
+                    style={{
+                        borderRadius: 14
+                    }}
+                    onClick={() =>
+                        setTrangHientai(trangHienTai - 1)
+                    }
+                    disabled={trangHienTai === 1}
+                >
+                    Prev
+                </button>
 
-    <button
-        className="btn btn-dark px-4"
-        onClick={() =>
-            setTrangHientai(trangHienTai + 1)
-        }
-    >
-        Next
-    </button>
+                <button
+                    className="btn btn-dark px-4 py-2"
+                    style={{
+                        borderRadius: 14
+                    }}
+                    onClick={() =>
+                        setTrangHientai(trangHienTai + 1)
+                    }
+                >
+                    Next
+                </button>
 
-</div>
+            </div>
         </div>
     );
 }

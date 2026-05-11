@@ -10,6 +10,22 @@ body {
   background: #f5f7fb;
   font-family: Inter, sans-serif;
 }
+body{
+  background: #f5f7fb;
+  font-family: 'Inter', sans-serif;
+}
+
+.card{
+  transition: 0.3s;
+}
+
+.card:hover{
+  transform: translateY(-4px);
+}
+body{
+  font-family: 'Inter', sans-serif;
+  background: #f5f7fb;
+}
 button {
   transition: 0.2s;
 }
