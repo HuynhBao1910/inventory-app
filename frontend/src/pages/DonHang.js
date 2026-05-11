@@ -9,7 +9,7 @@ function DonHang() {
     useEffect(() => {
         const layDonHang = async () => {
             try {
-                const res = await api.get("/donhang", {
+                const res = await api.get("/api/donhang", {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 

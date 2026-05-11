@@ -20,7 +20,7 @@ function SanPham() {
 
             const token = localStorage.getItem("token");
 
-            const res = await api.get("/sanpham", {
+            const res = await api.get("/api/sanpham", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
