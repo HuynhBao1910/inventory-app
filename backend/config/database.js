@@ -5,7 +5,7 @@ const ketnoi = mysql.createConnection({
     port: Number(process.env.MYSQLPORT),
     user: process.env.MYSQLUSER,
     password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQL_DATABASE,
+  database: process.env.MYSQLDATABASE,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
