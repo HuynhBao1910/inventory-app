@@ -1,7 +1,7 @@
 import { useState } from "react";
 import api from "../api/api";
 
-function Login({ setDangKy }) {
+function Login({ setTrang }) {
 
     const [email, setEmail] = useState("");
     const [matkhau, setMatkhau] = useState("");
@@ -25,10 +25,7 @@ function Login({ setDangKy }) {
 
             } else {
 
-                alert(
-                    "Server trả về nhưng không có token: "
-                    + JSON.stringify(res.data)
-                );
+                alert(res.data);
 
             }
 
@@ -36,63 +33,107 @@ function Login({ setDangKy }) {
 
             console.log(err);
 
-            alert(
-                JSON.stringify(err.response?.data) ||
-                err.message
-            );
+            alert("Lỗi server");
 
         }
 
     };
 
     return (
+
         <div
             className="d-flex justify-content-center align-items-center"
-            style={{ minHeight: "70vh" }}
+            style={{
+                minHeight: "100vh",
+                background:
+                    "linear-gradient(135deg,#667eea,#764ba2)"
+            }}
         >
 
             <div
-                className="card p-4 shadow"
+                className="card border-0 shadow-lg p-4"
                 style={{
-                    width: 400,
-                    borderRadius: 20
+                    width: 420,
+                    borderRadius: 28,
+                    backdropFilter: "blur(10px)"
                 }}
             >
 
-                <h2 className="mb-4 text-center fw-bold">
-                    Đăng nhập
-                </h2>
+                <div className="text-center mb-4">
+
+                    <div
+                        style={{
+                            width: 80,
+                            height: 80,
+                            borderRadius: "50%",
+                            background: "#111827",
+                            color: "white",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            margin: "0 auto 20px",
+                            fontSize: 32
+                        }}
+                    >
+                        📦
+                    </div>
+
+                    <h2 className="fw-bold">
+                        Welcome Back
+                    </h2>
+
+                    <p className="text-muted">
+                        Inventory Management System
+                    </p>
+
+                </div>
 
                 <input
-                    className="form-control mb-3"
+                    className="form-control form-control-lg mb-3"
                     placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) =>
+                        setEmail(e.target.value)
+                    }
                 />
 
                 <input
                     type="password"
-                    className="form-control mb-4"
+                    className="form-control form-control-lg mb-4"
                     placeholder="Mật khẩu"
-                    onChange={(e) => setMatkhau(e.target.value)}
+                    onChange={(e) =>
+                        setMatkhau(e.target.value)
+                    }
                 />
 
                 <button
-                    className="btn btn-dark w-100 mb-3"
+                    className="btn btn-dark btn-lg w-100 mb-3"
+                    style={{
+                        borderRadius: 14
+                    }}
                     onClick={dangNhap}
                 >
                     Đăng nhập
                 </button>
 
-                <button
-                    className="btn btn-outline-dark w-100"
-                    onClick={() => setDangKy(true)}
-                >
-                    Chưa có tài khoản? Đăng ký
-                </button>
+                <div className="text-center">
+
+                    <span className="text-muted">
+                        Chưa có tài khoản?
+                    </span>
+
+                    <button
+                        className="btn btn-link"
+                        onClick={() => setTrang("register")}
+                    >
+                        Đăng ký
+                    </button>
+
+                </div>
 
             </div>
 
         </div>
+
     );
 }
 

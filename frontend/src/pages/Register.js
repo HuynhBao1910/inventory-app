@@ -1,7 +1,7 @@
 import { useState } from "react";
 import api from "../api/api";
 
-function Register({ setDangKy }) {
+function Register({ setTrang }) {
 
     const [ten, setTen] = useState("");
     const [email, setEmail] = useState("");
@@ -19,71 +19,120 @@ function Register({ setDangKy }) {
 
             alert(res.data);
 
-            setDangKy(false);
+            setTrang("login");
 
         } catch (err) {
 
             console.log(err);
-            alert("Lỗi đăng ký");
+
+            alert("Lỗi server");
 
         }
 
     };
 
     return (
+
         <div
             className="d-flex justify-content-center align-items-center"
-            style={{ minHeight: "70vh" }}
+            style={{
+                minHeight: "100vh",
+                background:
+                    "linear-gradient(135deg,#0f172a,#1e293b)"
+            }}
         >
 
             <div
-                className="card p-4 shadow"
+                className="card border-0 shadow-lg p-4"
                 style={{
-                    width: 400,
-                    borderRadius: 20
+                    width: 420,
+                    borderRadius: 28
                 }}
             >
 
-                <h2 className="mb-4 text-center fw-bold">
-                    Đăng ký
-                </h2>
+                <div className="text-center mb-4">
+
+                    <div
+                        style={{
+                            width: 80,
+                            height: 80,
+                            borderRadius: "50%",
+                            background: "#2563eb",
+                            color: "white",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            margin: "0 auto 20px",
+                            fontSize: 32
+                        }}
+                    >
+                        🚀
+                    </div>
+
+                    <h2 className="fw-bold">
+                        Create Account
+                    </h2>
+
+                    <p className="text-muted">
+                        Start managing your inventory
+                    </p>
+
+                </div>
 
                 <input
-                    className="form-control mb-3"
+                    className="form-control form-control-lg mb-3"
                     placeholder="Tên"
-                    onChange={(e) => setTen(e.target.value)}
+                    onChange={(e) =>
+                        setTen(e.target.value)
+                    }
                 />
 
                 <input
-                    className="form-control mb-3"
+                    className="form-control form-control-lg mb-3"
                     placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) =>
+                        setEmail(e.target.value)
+                    }
                 />
 
                 <input
                     type="password"
-                    className="form-control mb-4"
+                    className="form-control form-control-lg mb-4"
                     placeholder="Mật khẩu"
-                    onChange={(e) => setMatkhau(e.target.value)}
+                    onChange={(e) =>
+                        setMatkhau(e.target.value)
+                    }
                 />
 
                 <button
-                    className="btn btn-dark w-100 mb-3"
+                    className="btn btn-primary btn-lg w-100 mb-3"
+                    style={{
+                        borderRadius: 14
+                    }}
                     onClick={dangKy}
                 >
                     Đăng ký
                 </button>
 
-                <button
-                    className="btn btn-outline-dark w-100"
-                    onClick={() => setDangKy(false)}
-                >
-                    Quay lại đăng nhập
-                </button>
+                <div className="text-center">
+
+                    <span className="text-muted">
+                        Đã có tài khoản?
+                    </span>
+
+                    <button
+                        className="btn btn-link"
+                        onClick={() => setTrang("login")}
+                    >
+                        Đăng nhập
+                    </button>
+
+                </div>
 
             </div>
 
         </div>
+
     );
 }
 
