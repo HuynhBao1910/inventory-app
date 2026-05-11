@@ -26,6 +26,13 @@ body{
   font-family: 'Inter', sans-serif;
   background: #f5f7fb;
 }
+.product-image{
+  transition: 0.3s;
+}
+
+.product-image:hover{
+  transform: scale(1.05);
+}
 body{
   background:#f4f7fb;
   font-family: 'Poppins', sans-serif;

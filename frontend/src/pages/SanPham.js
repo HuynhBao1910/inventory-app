@@ -236,23 +236,28 @@ function SanPham() {
                                 }}
                             >
 
-                                {/* IMAGE */}
+
 
                                 <div
                                     style={{
-                                        height: 240,
-                                        overflow: "hidden",
-                                        background: "#f5f5f5"
+                                        height: 260,
+                                        background: "#f8f9fa",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        padding: 20
                                     }}
                                 >
 
-                                    <img
+                                    <img 
                                         src={sp.hinhanh}
                                         alt=""
+                                        className="product-image"
                                         style={{
-                                            width: "100%",
-                                            height: "100%",
-                                            objectFit: "cover"
+                                            maxWidth: "100%",
+                                            maxHeight: "100%",
+                                            objectFit: "contain",
+                                            transition: "0.3s"
                                         }}
                                     />
 
