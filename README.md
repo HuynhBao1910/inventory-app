@@ -69,7 +69,7 @@ JWT_SECRET=123456
 ## Frontend
 
 ```env
-REACT_APP_API_URL=http://localhost:5000
+REACT_APP_API_URL= https://inventory-app-huynhbao1910s-projects.vercel.app/api
 ```
 
 ---
