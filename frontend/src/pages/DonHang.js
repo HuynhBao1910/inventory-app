@@ -28,7 +28,7 @@ function DonHang() {
     const capNhatTrangThai = async (id, trangthai) => {
         try {
             await api.put(
-                `/donhang/${id}`,
+                `/api/donhang/${id}`,
                 { trangthai },
                 {
                     headers: {

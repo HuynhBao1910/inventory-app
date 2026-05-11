@@ -49,7 +49,7 @@ function SanPham() {
     const xoaSanpham = async (id) => {
         try {
             const token = localStorage.getItem("token");
-            await api.delete(`/sanpham/${id}`, {
+            await api.delete(`/api/sanpham/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -74,7 +74,7 @@ function SanPham() {
             const token = localStorage.getItem("token");
 
             await api.put(
-                `/sanpham/${sp.id}`,
+                `/api/sanpham/${sp.id}`,
                 {
                     ten: tenMoi,
                     mota: motaMoi,
@@ -105,7 +105,7 @@ function SanPham() {
             const soluong = soluongMua[sp.id] || 1;
     
             await api.post(
-                "/donhang",
+                "/api/donhang",
                 {
                     danhsach: [
                         {
