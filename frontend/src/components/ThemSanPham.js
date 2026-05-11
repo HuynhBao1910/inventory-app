@@ -15,7 +15,7 @@ function ThemSanPham() {
             const token = localStorage.getItem("token");
 
             await api.post(
-                "/sanpham",
+                "/api/sanpham",
                 {
                     ten,
                     mota,

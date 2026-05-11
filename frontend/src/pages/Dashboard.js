@@ -6,7 +6,7 @@ function Dashboard() {
     const layDashboard = async () => {
         try {
             const token = localStorage.getItem("token");
-            const res = await api.get("/dashboard", {
+            const res = await api.get("/api/dashboard", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
