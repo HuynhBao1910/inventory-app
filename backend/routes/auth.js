@@ -19,12 +19,15 @@ router.post("/dangky", async (req, res) => {
                         error_detail: err.sqlMessage 
                     });
                 }
-                res.json("Đăng ký thành công");
+
+              return res.status(201).json({
+                    message: "Đăng ký thành công",
+                    id: result.insertId 
+                });
             }
         );
     } catch (err) {
-        console.error("Lỗi Bcrypt/Hệ thống:", err);
-        res.status(500).json("Lỗi mã hóa mật khẩu");
+        res.status(500).json({ message: "Lỗi hệ thống", error: err.message });
     }
 });
 
