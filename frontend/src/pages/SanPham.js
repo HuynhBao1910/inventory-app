@@ -132,13 +132,22 @@ function SanPham() {
         }
     };
 
-//trang
-    const viTriCuoi = trangHienTai * soLuongMoiTrang;
-    const viTriDau = viTriCuoi - soLuongMoiTrang;
-    const sanPhamHienThi = danhsach.filter((sp) => sp.ten.toLowerCase().includes(
-        timkiem.toLowerCase()
-    ))
-        .slice(viTriDau, viTriCuoi);
+// trang
+const viTriCuoi = trangHienTai * soLuongMoiTrang;
+const viTriDau = viTriCuoi - soLuongMoiTrang;
+
+const sanPhamHienThi = danhsach.filter((sp) => {
+
+    const tenSanpham = sp.ten
+        ? sp.ten.toLowerCase()
+        : "";
+
+    return tenSanpham.includes(
+        (timkiem || "").toLowerCase()
+    );
+
+})
+.slice(viTriDau, viTriCuoi);
 
     return (
         <div>
