@@ -1,4 +1,6 @@
+import { useState } from "react";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import SanPham from "./pages/SanPham";
 import DonHang from "./pages/DonHang";
 import Dashboard from "./pages/Dashboard";
@@ -7,17 +9,24 @@ function App() {
 
   const token = localStorage.getItem("token");
 
+  const [dangKy, setDangKy] = useState(false);
+
   return (
-    <div className="container py-5" style={{maxWidth:1300}}>
+    <div className="container py-5" style={{ maxWidth: 1300 }}>
 
       <div className="d-flex justify-content-between align-items-center mb-4">
 
-      <div className="text-center mb-5">
+        <div className="text-center mb-5">
 
-  <h1 className="fw-bold" style={{fontSize: 56}}>Inventory Management</h1>
-  <p className="text-muted" style={{fontSize: 20}}>Quản lý sản phẩm và đơn hàng</p>
+          <h1 className="fw-bold" style={{ fontSize: 56 }}>
+            Inventory Management
+          </h1>
 
-</div>
+          <p className="text-muted" style={{ fontSize: 20 }}>
+            Quản lý sản phẩm và đơn hàng
+          </p>
+
+        </div>
 
         {
           token && (
@@ -28,7 +37,6 @@ function App() {
                 window.location.reload();
               }}
             >
-              <i className="bi bi-box-arrow-right me-2"></i>
               Đăng xuất
             </button>
           )
@@ -45,7 +53,11 @@ function App() {
               <DonHang />
             </>
           )
-          : <Login />
+          : (
+            dangKy
+              ? <Register setDangKy={setDangKy} />
+              : <Login setDangKy={setDangKy} />
+          )
       }
 
     </div>

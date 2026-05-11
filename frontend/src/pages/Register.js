@@ -1,45 +1,30 @@
 import { useState } from "react";
 import api from "../api/api";
 
-function Login({ setDangKy }) {
+function Register({ setDangKy }) {
 
+    const [ten, setTen] = useState("");
     const [email, setEmail] = useState("");
     const [matkhau, setMatkhau] = useState("");
 
-    const dangNhap = async () => {
+    const dangKy = async () => {
 
         try {
 
-            const res = await api.post("/api/auth/dangnhap", {
+            const res = await api.post("/api/auth/dangky", {
+                ten,
                 email,
                 matkhau
             });
 
-            if (res.data.token) {
+            alert(res.data);
 
-                localStorage.setItem("token", res.data.token);
-
-                alert("Đăng nhập thành công");
-
-                window.location.reload();
-
-            } else {
-
-                alert(
-                    "Server trả về nhưng không có token: "
-                    + JSON.stringify(res.data)
-                );
-
-            }
+            setDangKy(false);
 
         } catch (err) {
 
             console.log(err);
-
-            alert(
-                JSON.stringify(err.response?.data) ||
-                err.message
-            );
+            alert("Lỗi đăng ký");
 
         }
 
@@ -60,8 +45,14 @@ function Login({ setDangKy }) {
             >
 
                 <h2 className="mb-4 text-center fw-bold">
-                    Đăng nhập
+                    Đăng ký
                 </h2>
+
+                <input
+                    className="form-control mb-3"
+                    placeholder="Tên"
+                    onChange={(e) => setTen(e.target.value)}
+                />
 
                 <input
                     className="form-control mb-3"
@@ -78,16 +69,16 @@ function Login({ setDangKy }) {
 
                 <button
                     className="btn btn-dark w-100 mb-3"
-                    onClick={dangNhap}
+                    onClick={dangKy}
                 >
-                    Đăng nhập
+                    Đăng ký
                 </button>
 
                 <button
                     className="btn btn-outline-dark w-100"
-                    onClick={() => setDangKy(true)}
+                    onClick={() => setDangKy(false)}
                 >
-                    Chưa có tài khoản? Đăng ký
+                    Quay lại đăng nhập
                 </button>
 
             </div>
@@ -96,4 +87,4 @@ function Login({ setDangKy }) {
     );
 }
 
-export default Login;
+export default Register;
