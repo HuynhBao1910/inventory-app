@@ -7,27 +7,21 @@ const app = express();
 
 const dashboardRoute = require("./routes/dashboard");
 
-// middleware
-// const cors = require('cors');
 app.use(cors({
-    // origin: 'https://inventory-app-huynhbao1910s-projects.vercel.app',
-    origin: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
+    origin: "https://inventory-app-huynhbao1910s-projects.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());
-// app.options('(.*)', cors());
-app.options(/^(.*)$/, cors());
-// routes
+
 app.use("/api/sanpham", require("./routes/sanpham"));
 app.use("/api/donhang", require("./routes/donhang"));
 app.use("/api/dashboard", dashboardRoute);
-
-const PORT = process.env.PORT || 8080;
 app.use("/api/auth", require("./routes/auth"));
 
-app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server đang chạy ở cổng ${PORT}`);
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
+    console.log(`Server đang chạy cổng ${PORT}`);
 });
